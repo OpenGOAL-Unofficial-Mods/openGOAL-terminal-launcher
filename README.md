@@ -1,0 +1,1 @@
+# openGOAL-terminal-launcher

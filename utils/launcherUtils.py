@@ -38,7 +38,7 @@ FileIdent = "" # If we ever get to multiple .zip files in a release, include oth
 
 dirs = AppDirs(roaming=True)
 ModFolderPATH = dirs.user_data_dir  + "\\OpenGOAL-Mods"
-
+AppdataPATH = dirs.user_data_dir
 pbar = None
 
 def installedlist(PATH):
@@ -103,7 +103,7 @@ def launch_local(MOD_NAME):
 
         time.sleep(1)
         InstallDir = ModFolderPATH + MOD_NAME
-        AppdataPATH = os.getenv('APPDATA')
+     
         UniversalIsoPath = AppdataPATH + "\OpenGOAL\jak1\mods\data\iso_data\iso_data"
         GKCOMMANDLINElist = [InstallDir +"\gk.exe", "-proj-path", InstallDir + "\\data", "-boot", "-fakeiso", "-v"]
         print(GKCOMMANDLINElist)
@@ -117,7 +117,7 @@ def openFolder(path):
 
 def reinstall(MOD_NAME):
     InstallDir = ModFolderPATH + MOD_NAME
-    AppdataPATH = os.getenv('APPDATA')
+
     UniversalIsoPath = AppdataPATH + "\OpenGOAL\jak1\mods\data\iso_data\iso_data"
     GKCOMMANDLINElist = [InstallDir +"\gk.exe", "-proj-path", InstallDir + "\\data", "-boot", "-fakeiso", "-v"]
 
@@ -174,7 +174,7 @@ def launch(URL, MOD_NAME, LINK_TYPE):
 
     #paths  
     InstallDir = ModFolderPATH + MOD_NAME
-    AppdataPATH = os.getenv('APPDATA')
+
     UniversalIsoPath = AppdataPATH + "\OpenGOAL\jak1\mods\data\iso_data\iso_data"
     GKCOMMANDLINElist = [InstallDir +"\gk.exe", "-proj-path", InstallDir + "\\data", "-boot", "-fakeiso", "-v"]
 

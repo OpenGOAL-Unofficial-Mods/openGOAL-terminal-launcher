@@ -256,7 +256,7 @@ def handleInstalledModSelected():
     return [tmpModderSelected, tmpModSelected]
 
 def changePlayInstallButtonText():
-    subfolders = [ f.name for f in os.scandir(dirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
+    subfolders = [ f.name for f in os.scandir(ModFolderPATH) if f.is_dir() ]
     if not window['pick_mod'].get() in subfolders:
             window['Launch!'].update('Install')
             window['Uninstall'].update(disabled=True)
@@ -272,7 +272,7 @@ def changePlayInstallButtonText():
         
 
 def refreshInstalledList():
-    subfolders = [ f.name for f in os.scandir(dirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
+    subfolders = [ f.name for f in os.scandir(ModFolderPATH) if f.is_dir() ]
     window["InstalledModListBox"].update(subfolders)
 
 def open_steamPrompt():
@@ -482,7 +482,7 @@ while True:
     elif event == "ViewFolder_1":
         tmpModSelected = window['-SELECTEDMOD-'].get()
         tmpModURL = window['-SELECTEDMODURL-'].get()
-        subfolders = [ f.name for f in os.scandir(dirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
+        subfolders = [ f.name for f in os.scandir(ModFolderPATH) if f.is_dir() ]
         if subfolders == []:
             subfolders = ["No Mods Installed"]
             
@@ -497,7 +497,7 @@ while True:
     elif event == "Reinstall_1":
         tmpModSelected = window['-SELECTEDMOD-'].get()
         tmpModURL = window['-SELECTEDMODURL-'].get()
-        subfolders = [ f.name for f in os.scan(dirdirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
+        subfolders = [ f.name for f in os.scan(ModFolderPATH) if f.is_dir() ]
         if subfolders == []:
             subfolders = ["No Mods Installed"]
             
@@ -517,7 +517,7 @@ while True:
     elif event == "Uninstall" or event =="Uninstall_1":
         tmpModSelected = window['-SELECTEDMOD-'].get()
         tmpModURL = window['-SELECTEDMODURL-'].get()
-        subfolders = [ f.name for f in os.scandir(dirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
+        subfolders = [ f.name for f in os.scandir(ModFolderPATH) if f.is_dir() ]
         if subfolders == []:
             subfolders = ["No Mods Installed"]
             

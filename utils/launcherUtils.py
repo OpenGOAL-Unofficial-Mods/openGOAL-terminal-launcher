@@ -300,8 +300,9 @@ def launch(URL, MOD_NAME, LINK_TYPE):
         if (currentOS == "Windows"):
             extractor_command_list = [os.path.join(InstallDir,"extractor.exe"), "-f", iso_path]
         if (currentOS == "Linux"):
-            chmod_command_list = [os.path.join(LauncherDir), "chmod +x extractor goalc gk"]
-            subprocess.Popen('ls', "chmod "+os.path.join(LauncherDir, "",) + " +x extractor goalc gk")
+            chmod_command_list = ["cd" + os.path.join(LauncherDir), "chmod +x extractor goalc gk"]
+            subprocess.Popen(chmod_command_list)
+            print("Done chmods!")
             extractor_command_list = [os.path.join(LauncherDir), "./extractor -f" + iso_path + "--proj-path" + InstallDir]
         print(extractor_command_list)
         

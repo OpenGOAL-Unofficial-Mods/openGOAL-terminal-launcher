@@ -20,7 +20,7 @@ import time
 import tkinter as tk
 import urllib.request
 import zipfile
-
+from appdirs import AppDirs
 EXTRACT_ON_UPDATE="true"            
 FILE_DATE_TO_CHECK="gk.exe"
 UPDATE_FILE_EXTENTION=".zip"
@@ -34,8 +34,10 @@ elif __file__:
 extractOnUpdate = bool(str(EXTRACT_ON_UPDATE).replace("t","T").replace("f", "F"))
 ExecutableName = str(FILE_DATE_TO_CHECK) # Executable we're checking the 'modified' time of
 FileExt = str(UPDATE_FILE_EXTENTION) # content_type of the .deb release is also "application\zip", so rely on file ext
-FileIdent = "" # If we ever get to multiple .zip files in a release, include other identifying information from the name (e.g. "windows-x64")
+FileIdent = "" # If we ever get to multiple .zip files in a release, include other identifying information from the name
 
+dirs = AppDirs(roaming=True)
+ModFolderPATH = dirs.user_data_dir  + "\\OpenGOAL-Mods"
 
 pbar = None
 
@@ -88,7 +90,7 @@ def try_remove_dir(dir):
         shutil.rmtree(dir)
 
 def local_mod_image(MOD_NAME):
-    path = os.getenv('APPDATA') + "\\OpenGOAL-Mods\\" + MOD_NAME + "\\ModImage.png"
+    path = ModFolderPATH + MOD_NAME + "\\ModImage.png"
     if exists(path):
         return path
     return None
@@ -100,7 +102,7 @@ def launch_local(MOD_NAME):
         try_kill_process("goalc.exe")
 
         time.sleep(1)
-        InstallDir = os.getenv('APPDATA') + "\\OpenGOAL-Mods\\" + MOD_NAME
+        InstallDir = ModFolderPATH + MOD_NAME
         AppdataPATH = os.getenv('APPDATA')
         UniversalIsoPath = AppdataPATH + "\OpenGOAL\jak1\mods\data\iso_data\iso_data"
         GKCOMMANDLINElist = [InstallDir +"\gk.exe", "-proj-path", InstallDir + "\\data", "-boot", "-fakeiso", "-v"]
@@ -114,7 +116,7 @@ def openFolder(path):
     subprocess.run([FILEBROWSER_PATH, path])
 
 def reinstall(MOD_NAME):
-    InstallDir = os.getenv('APPDATA') + "\\OpenGOAL-Mods\\" + MOD_NAME
+    InstallDir = ModFolderPATH + MOD_NAME
     AppdataPATH = os.getenv('APPDATA')
     UniversalIsoPath = AppdataPATH + "\OpenGOAL\jak1\mods\data\iso_data\iso_data"
     GKCOMMANDLINElist = [InstallDir +"\gk.exe", "-proj-path", InstallDir + "\\data", "-boot", "-fakeiso", "-v"]
@@ -171,7 +173,7 @@ def launch(URL, MOD_NAME, LINK_TYPE):
     r = json.loads(json.dumps(requests.get(url = launchUrl, params = PARAMS).json()))
 
     #paths  
-    InstallDir = os.getenv('APPDATA') + "\\OpenGOAL-Mods\\" + MOD_NAME
+    InstallDir = ModFolderPATH + MOD_NAME
     AppdataPATH = os.getenv('APPDATA')
     UniversalIsoPath = AppdataPATH + "\OpenGOAL\jak1\mods\data\iso_data\iso_data"
     GKCOMMANDLINElist = [InstallDir +"\gk.exe", "-proj-path", InstallDir + "\\data", "-boot", "-fakeiso", "-v"]

@@ -24,6 +24,7 @@ import os
 from os.path import exists
 import urllib.request
 import shutil
+from appdirs import AppDirs
 
 # Folder where script is placed, It looks in this for the Exectuable
 if getattr(sys, 'frozen', False):
@@ -39,7 +40,10 @@ currentModSelected = None
 currentModURL = None
 currentModImage = None
 steamDIR = None
-AppdataPATH = os.getenv('APPDATA')
+dirs = AppDirs(roaming=True)
+AppdataPATH = dirs.user_data_dir + "\\OPENGOAL-UnofficalModLauncher\\"
+ModFolderPATH = dirs.user_data_dir  + "\\OpenGOAL-Mods"
+
 
 
 #comment this out if you want to test with a local file
@@ -130,13 +134,13 @@ noimagefile = png_bio.getvalue()
 window = sg.Window('OpenGOAL Mod Launcher v0.03', layout, icon = iconfile, finalize=True)
 window.Element('AddToSteam').Update(visible = False)
 def bootup():
-    #print("BOOT")
+    print("BOOT")
     
     #installed mods
-    if not os.path.exists(AppdataPATH + "/OpenGOAL-Mods"):
+    if not os.path.exists(ModFolderPATH):
         print("Creating Mod dir: " + AppdataPATH)
-        os.makedirs(AppdataPATH + "/OpenGOAL-Mods")
-    subfolders = [ f.name for f in os.scandir(os.getenv('APPDATA') + "\\OpenGOAL-Mods") if f.is_dir() ]
+        os.makedirs(ModFolderPATH)
+    subfolders = [ f.name for f in os.scandir(ModFolderPATH) if f.is_dir() ]
     if subfolders == []:
         subfolders = ["No Mods Installed"]
     #print(subfolders)
@@ -252,7 +256,7 @@ def handleInstalledModSelected():
     return [tmpModderSelected, tmpModSelected]
 
 def changePlayInstallButtonText():
-    subfolders = [ f.name for f in os.scandir(os.getenv('APPDATA') + "\\OpenGOAL-Mods") if f.is_dir() ]
+    subfolders = [ f.name for f in os.scandir(dirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
     if not window['pick_mod'].get() in subfolders:
             window['Launch!'].update('Install')
             window['Uninstall'].update(disabled=True)
@@ -268,7 +272,7 @@ def changePlayInstallButtonText():
         
 
 def refreshInstalledList():
-    subfolders = [ f.name for f in os.scandir(os.getenv('APPDATA') + "\\OpenGOAL-Mods") if f.is_dir() ]
+    subfolders = [ f.name for f in os.scandir(dirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
     window["InstalledModListBox"].update(subfolders)
 
 def open_steamPrompt():
@@ -478,13 +482,13 @@ while True:
     elif event == "ViewFolder_1":
         tmpModSelected = window['-SELECTEDMOD-'].get()
         tmpModURL = window['-SELECTEDMODURL-'].get()
-        subfolders = [ f.name for f in os.scandir(os.getenv('APPDATA') + "\\OpenGOAL-Mods") if f.is_dir() ]
+        subfolders = [ f.name for f in os.scandir(dirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
         if subfolders == []:
             subfolders = ["No Mods Installed"]
             
         if tmpModSelected and not tmpModSelected == "No Mods Installed" and tmpModSelected in subfolders:
             print(tmpModSelected)
-            dir = os.getenv('APPDATA') + "\\OpenGOAL-Mods\\" + tmpModSelected
+            dir = dirs.user_data_dir + "\\OpenGOAL-Mods\\" + tmpModSelected
             launcherUtils.openFolder(dir)
         else:
             if (len(window['InstalledModListBox'].get())) == 0:
@@ -493,13 +497,13 @@ while True:
     elif event == "Reinstall_1":
         tmpModSelected = window['-SELECTEDMOD-'].get()
         tmpModURL = window['-SELECTEDMODURL-'].get()
-        subfolders = [ f.name for f in os.scandir(os.getenv('APPDATA') + "\\OpenGOAL-Mods") if f.is_dir() ]
+        subfolders = [ f.name for f in os.scan(dirdirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
         if subfolders == []:
             subfolders = ["No Mods Installed"]
             
         if tmpModSelected and not tmpModSelected == "No Mods Installed" and tmpModSelected in subfolders:
             print(tmpModSelected)
-            dir = os.getenv('APPDATA') + "\\OpenGOAL-Mods\\" + tmpModSelected
+            dir = dirs.user_data_dir + "\\OpenGOAL-Mods\\" + tmpModSelected
             ans = sg.popup_ok_cancel('Confirm: reinstalling ' + dir + " \n\nNote: this will re-extract texture_replacements too",icon = iconfile)
             if ans == 'OK':
                 launcherUtils.reinstall(tmpModSelected)
@@ -513,13 +517,13 @@ while True:
     elif event == "Uninstall" or event =="Uninstall_1":
         tmpModSelected = window['-SELECTEDMOD-'].get()
         tmpModURL = window['-SELECTEDMODURL-'].get()
-        subfolders = [ f.name for f in os.scandir(os.getenv('APPDATA') + "\\OpenGOAL-Mods") if f.is_dir() ]
+        subfolders = [ f.name for f in os.scandir(dirs.user_data_dir + "\\OpenGOAL-Mods") if f.is_dir() ]
         if subfolders == []:
             subfolders = ["No Mods Installed"]
             
         if tmpModSelected and not tmpModSelected == "No Mods Installed" and tmpModSelected in subfolders:
             print(tmpModSelected)
-            dir = os.getenv('APPDATA') + "\\OpenGOAL-Mods\\" + tmpModSelected
+            dir = dirs.user_data_dir + "\\OpenGOAL-Mods\\" + tmpModSelected
             ans = sg.popup_ok_cancel('Confirm: uninstalling ' + dir ,icon = iconfile)
             if ans == 'OK':
                 launcherUtils.try_remove_dir(dir)

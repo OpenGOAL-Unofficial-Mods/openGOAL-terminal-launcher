@@ -22,6 +22,8 @@ import urllib.request
 import zipfile
 from appdirs import AppDirs
 import os
+import platform
+
 
 EXTRACT_ON_UPDATE="true"            
 FILE_DATE_TO_CHECK="gk.exe"
@@ -39,7 +41,7 @@ FileExt = str(UPDATE_FILE_EXTENTION) # content_type of the .deb release is also 
 FileIdent = "" # If we ever get to multiple .zip files in a release, include other identifying information from the name
 
 dirs = AppDirs(roaming=True)
-
+currentOS = platform.system()
 ModFolderPATH = os.path.join(dirs.user_data_dir, "OpenGOAL-Mods","")
 AppdataPATH = dirs.user_data_dir
 pbar = None
@@ -295,7 +297,10 @@ def launch(URL, MOD_NAME, LINK_TYPE):
         try_kill_process("gk.exe")
         try_kill_process("goalc.exe")
         print("Done update starting extractor This one can take a few moments! \n")
-        extractor_command_list = [os.path.join(InstallDir,"extractor.exe"), "-f", iso_path]
+        if (currentOS == "Windows"):
+            extractor_command_list = [os.path.join(InstallDir,"extractor.exe"), "-f", iso_path]
+        if (currentOS == "Linux"):
+            extractor_command_list = [os.path.join(LauncherDir,"extractor"), "-f", iso_path, "--proj-path", InstallDir]
         print(extractor_command_list)
         
         subprocess.Popen(extractor_command_list)

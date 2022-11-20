@@ -42,7 +42,7 @@ currentModImage = None
 steamDIR = None
 dirs = AppDirs(roaming=True)
 AppdataPATH = dirs.user_data_dir + "\\OPENGOAL-UnofficalModLauncher\\"
-ModFolderPATH = dirs.user_data_dir  + "\\OpenGOAL-Mods"
+ModFolderPATH = dirs.user_data_dir  + "\\OpenGOAL-Mods\\"
 
 
 

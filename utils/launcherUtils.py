@@ -37,7 +37,7 @@ FileExt = str(UPDATE_FILE_EXTENTION) # content_type of the .deb release is also 
 FileIdent = "" # If we ever get to multiple .zip files in a release, include other identifying information from the name
 
 dirs = AppDirs(roaming=True)
-ModFolderPATH = dirs.user_data_dir  + "\\OpenGOAL-Mods"
+ModFolderPATH = dirs.user_data_dir  + "\\OpenGOAL-Mods\\"
 AppdataPATH = dirs.user_data_dir
 pbar = None
 

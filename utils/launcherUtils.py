@@ -300,7 +300,7 @@ def launch(URL, MOD_NAME, LINK_TYPE):
         if (currentOS == "Windows"):
             extractor_command_list = [os.path.join(InstallDir,"extractor.exe"), "-f", iso_path]
         if (currentOS == "Linux"):
-            extractor_command_list = [os.path.join(LauncherDir,"extractor"), "-f" + iso_path + "--proj-path" + InstallDir]
+            extractor_command_list = [os.path.join(LauncherDir), "./extractor -f" + iso_path + "--proj-path" + InstallDir]
         print(extractor_command_list)
         
         subprocess.Popen(extractor_command_list)

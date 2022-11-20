@@ -21,6 +21,8 @@ import tkinter as tk
 import urllib.request
 import zipfile
 from appdirs import AppDirs
+import os
+
 EXTRACT_ON_UPDATE="true"            
 FILE_DATE_TO_CHECK="gk.exe"
 UPDATE_FILE_EXTENTION=".zip"
@@ -37,7 +39,8 @@ FileExt = str(UPDATE_FILE_EXTENTION) # content_type of the .deb release is also 
 FileIdent = "" # If we ever get to multiple .zip files in a release, include other identifying information from the name
 
 dirs = AppDirs(roaming=True)
-ModFolderPATH = dirs.user_data_dir  + "\\OpenGOAL-Mods\\"
+
+ModFolderPATH = os.path.join(dirs.user_data_dir, "OpenGOAL-Mods","")
 AppdataPATH = dirs.user_data_dir
 pbar = None
 

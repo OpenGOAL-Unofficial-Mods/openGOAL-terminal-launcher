@@ -41,10 +41,10 @@ currentModURL = None
 currentModImage = None
 steamDIR = None
 dirs = AppDirs(roaming=True)
-AppdataPATH = dirs.user_data_dir + "\\OPENGOAL-UnofficalModLauncher\\"
-ModFolderPATH = dirs.user_data_dir  + "\\OpenGOAL-Mods\\"
+AppdataPATH = os.path.join(dirs.user_data_dir, "OPENGOAL-UnofficalModLauncher","")
+ModFolderPATH = os.path.join(dirs.user_data_dir, "OpenGOAL-Mods","")
 
-
+print()
 
 #comment this out if you want to test with a local file
 moddersAndModsJSON = requests.get("https://raw.githubusercontent.com/OpenGOAL-Unofficial-Mods/OpenGoal-ModLauncher-dev/main/resources/ListOfMods.json").json()

@@ -301,8 +301,9 @@ def launch(URL, MOD_NAME, LINK_TYPE):
             extractor_command_list = [os.path.join(InstallDir,"extractor.exe"), "-f", iso_path]
         if (currentOS == "Linux"):
             #We need to give the executibles execute permissions in Linux but this doesn't work
-            chmod_command_list = ["cd" + os.path.join(LauncherDir), "chmod +x extractor goalc gk"]
-            subprocess.Popen(chmod_command_list)
+            #chmod_command_list = ["cd" + os.path.join(LauncherDir), "chmod +x extractor goalc gk"]
+            #subprocess.Popen(chmod_command_list)
+            os.chmod(os.path.join(LauncherDir, extractor), stat.S_IXOTH)
             print("Done chmods!")
             #Then we need to call the Linux extractor when we do the next Popen
             extractor_command_list = [os.path.join(LauncherDir), "./extractor -f" + iso_path + "--proj-path" + InstallDir]
